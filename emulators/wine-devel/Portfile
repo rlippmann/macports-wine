@@ -6,12 +6,14 @@ PortGroup                   github 1.0
 PortGroup                   muniversal 1.1
 
 # Keep the wine-stable, wine-devel and wine-crossover portfiles as similar as possible.
-
-github.setup                wine-mirror wine 10.3 wine-
+set github_user wine-mirror
+set github_repo wine
+set github_version 10.3
+github.setup                ${github_user} ${github_repo} ${github_repo} 10.3 ${github_repo}-
 github.tarball_from         archive
 name                        wine-devel
 conflicts                   wine-stable wine-staging wine-crossover
-set my_name                 wine
+set my_name                 ${github_repo}
 revision                    0
 # MacPorts does not support i386 on macOS Mojave and new WoW64 requires macOS Catalina 10.15.4
 platforms                   {darwin > 15 != 18.*}
@@ -224,7 +226,7 @@ variant hacks description "Build ${subport} with additional patchsets" {
 variant bleeding_edge description "Build ${subport} with bleeding edge sources" {
     # Override the tarball fetch with a Git clone
     fetch.type    git
-    fetch.url     https://github.com/${github.setup.user}/${github.setup.repo}.git
+    fetch.url     https://github.com/${github_user}/${github_repo}.git
     fetch.branch  master
 
     # Skip checksum verification when using git clone
