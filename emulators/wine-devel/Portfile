@@ -9,8 +9,6 @@ PortGroup                   muniversal 1.1
 set github_user wine-mirror
 set github_repo wine
 set github_version 10.3
-github.setup                ${github_user} ${github_repo} ${github_repo} 10.3 ${github_repo}-
-github.tarball_from         archive
 name                        wine-devel
 conflicts                   wine-stable wine-staging wine-crossover
 set my_name                 ${github_repo}
@@ -24,7 +22,10 @@ supported_archs             i386 x86_64
 maintainers                 {@Gcenx}
 homepage                    https://www.winehq.org
 dist_subdir                 ${my_name}
-
+if {![variant_isset bleeding_edge]} {
+    github.setup                ${github_user} ${github_repo} ${github_repo} 10.3 ${github_repo}-
+    github.tarball_from         archive
+}
 description \
     A Windows API implementation
 
@@ -231,9 +232,6 @@ variant bleeding_edge description "Build ${subport} with bleeding edge sources" 
 
     # Skip checksum verification when using git clone
     checksums      none
-    # Don't do a tarball fetch
-    set github.setup {}
-    set github.tarball_from {}
 }
 
 if {${os.major} < 19} {
