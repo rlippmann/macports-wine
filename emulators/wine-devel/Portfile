@@ -231,6 +231,9 @@ variant bleeding_edge description "Build ${subport} with bleeding edge sources" 
 
     # Skip checksum verification when using git clone
     checksums      none
+    # Don't do a tarball fetch
+    set github.setup {}
+    set github.tarball_from {}
 }
 
 if {${os.major} < 19} {
