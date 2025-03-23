@@ -224,8 +224,8 @@ variant hacks description "Build ${subport} with additional patchsets" {
 variant bleeding_edge description "Build ${subport} with bleeding edge sources" {
     # Override the tarball fetch with a Git clone
     fetch.type    git
-    fetch.url     ${git_url}
-    fetch.branch  ${git_branch}
+    fetch.url     https://github.com/${github.user}/${github.repo}.git
+    fetch.branch  master
 
     # Skip checksum verification when using git clone
     checksums      none
